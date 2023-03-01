@@ -8,6 +8,7 @@ class VueRouter {
     this.routes = options.routes || [];
     this.mode = options.mode || 'hash';
     this.matcher = createMatcher(options.routes);
+    this.beforeEachHooks = [];
     
     switch (this.mode) {
       case 'history':
@@ -32,6 +33,9 @@ class VueRouter {
   }
   match (location) {
     return this.matcher.match(location);
+  }
+  beforeEach (cb) {
+    this.beforeEachHooks.push(cb);
   }
   push (location) {
     const history = this.history;
